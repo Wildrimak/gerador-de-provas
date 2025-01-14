@@ -1,0 +1,25 @@
+spring:
+  profile:
+    active: local-prod
+  datasource:
+    platform: postgres
+    username: wildrimak
+    password: dificil
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+---
+spring.config.activate.on-profile: local-prod
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5433/questoes
+server:
+  port: 8081
+
+---
+spring.config.activate.on-profile: local
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/questoes-dev

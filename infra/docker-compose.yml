@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  database-prod:
+    image: postgres:17.2-alpine
+    container_name: questoes_local_prod
+    environment:
+      POSTGRES_USER: wildrimak
+      POSTGRES_PASSWORD: dificil
+      POSTGRES_DB: questoes
+    ports:
+      - "5433:5432"
+    volumes:
+      - /d/questoes-data/questoes-db/postgres17.2-local:/var/lib/postgresql/data
+  database-dev:
+    image: postgres:17.2-alpine
+    container_name: questoes_local_dev
+    environment:
+      POSTGRES_USER: wildrimak
+      POSTGRES_PASSWORD: dificil
+      POSTGRES_DB: questoes-dev
+    ports:
+      - "5432:5432"
