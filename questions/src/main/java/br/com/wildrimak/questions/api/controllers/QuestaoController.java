@@ -3,7 +3,6 @@ package br.com.wildrimak.questions.api.controllers;
 import br.com.wildrimak.questions.api.dtos.QuestaoRequest;
 import br.com.wildrimak.questions.api.dtos.QuestaoResponse;
 import br.com.wildrimak.questions.api.mappers.QuestaoMapper;
-import br.com.wildrimak.questions.data.models.QuestaoJPA;
 import br.com.wildrimak.questions.dominio.model.Questao;
 import br.com.wildrimak.questions.dominio.services.QuestaoService;
 import jakarta.validation.Valid;
