@@ -1,12 +1,18 @@
-# Instrucoes para executar no github codespace
+# Instruções para executar no github codespace
 
 ## Configurando ambiente
-1. Escolha a maquina 4-core 32GB
-2. No terminal coloque o java version para 17 usando sdk install java 17.0.13-tem
-3. Instalar extensao Java Extension Pack que instalar as extensoes "Debugger for Java" e "Maven for Java", se nao instale-as (Todas com o fornecedor da Microsoft)
+1. Escolha a máquina 4-core 32GB
+2. No terminal coloque o java version para 17 usando:
 
-## Configurando a execucao
-1. Criei uma pasta .vscode na raiz do projeto e crie os 3 arquivos a seguir: launch.json, settings.json e tasks.json
+```
+sdk install java 17.0.13-tem
+```
+
+3. Instalar extensão "Java Extension Pack" que irá instalar as extensões "Debugger for Java" e "Maven for Java", se não,
+instale-as (Todas com o fornecedor da Microsoft).
+
+## Configurando a execução
+1. Crie uma pasta ".vscode" na raiz do projeto e crie os 3 arquivos a seguir: launch.json, settings.json e tasks.json
 2. No arquivo launch.json adicione:
 
 ```json
@@ -61,14 +67,20 @@
 
 > docker compose up -d
 
-6. Na barra lateral acima de extensoes e abaixo de controle de codigo fonte, clique no Executar e Depurar e na aba que aparecer clique no triangulo verde para iniciar a depuracao. 
+6. Na barra lateral acima de extensões e abaixo de controle de código fonte, clique no Executar e Depurar e na aba que 
+aparecer clique no triangulo verde para iniciar a depuração. 
 
-7. Aparecendo quaisquer modais perguntando por alguma acao, marque yes em todas elas.
+7. Aparecendo quaisquer modais perguntando por alguma ação, marque yes em todas elas.
 
-## Configuracoes opcionais
+## Configurações opcionais
 
-* Extensao Postman (Postman)
-* Extensao Docker (Microsoft)
-* Extensao Markdown All in One (Yi Zhang)
-* Extensao Database Client (Weijan Chen)
-  * Nesse caso, use as conf de dev para criar conexao com a base
+* Extensão Postman (Postman)
+* Extensão Docker (Microsoft)
+* Extensão Markdown All in One (Yi Zhang)
+* Extensão Database Client (Weijan Chen)
+  * Nesse caso, use as conf de dev para criar conexão com a base
+
+## Observações
+
+No modo vscode usando codespace não existe ambiente de prod, no docker compose, ha uma configuração para ambiente de 
+prod local, mas ela nao faz sentido lá, pois a princípio a aplicação é para executar na máquina do usuário.
