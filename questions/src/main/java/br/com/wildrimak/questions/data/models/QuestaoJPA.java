@@ -2,8 +2,8 @@ package br.com.wildrimak.questions.data.models;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "questao")
@@ -13,17 +13,17 @@ public class QuestaoJPA {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, length = 25)
+    @Column(length = 25)
     private String resumo;
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String descricao;
 
-    @Column(name = "nivel_dificuldade", nullable = false)
-    private int nivelDificuldade;
+    @Column(name = "nivel_dificuldade")
+    private Integer nivelDificuldade;
 
     @OneToMany(mappedBy = "questao", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AlternativaJPA> alternativas = new ArrayList<>();
+    private Set<AlternativaJPA> alternativas = new HashSet<>();
 
     @ManyToMany
     @JoinTable(
@@ -31,13 +31,13 @@ public class QuestaoJPA {
             joinColumns = @JoinColumn(name = "id_questao"),
             inverseJoinColumns = @JoinColumn(name = "id_tema")
     )
-    private List<TemaJPA> temas = new ArrayList<>();
+    private Set<TemaJPA> temas = new HashSet<>();
 
-    public void setAlternativas(List<AlternativaJPA> alternativas) {
+    public void setAlternativas(Set<AlternativaJPA> alternativas) {
         this.alternativas = alternativas;
     }
 
-    public List<AlternativaJPA> getAlternativas() {
+    public Set<AlternativaJPA> getAlternativas() {
         return alternativas;
     }
 
@@ -65,19 +65,41 @@ public class QuestaoJPA {
         this.descricao = descricao;
     }
 
-    public int getNivelDificuldade() {
+    public Integer getNivelDificuldade() {
         return nivelDificuldade;
     }
 
-    public void setNivelDificuldade(int nivelDificuldade) {
+    public void setNivelDificuldade(Integer nivelDificuldade) {
         this.nivelDificuldade = nivelDificuldade;
     }
 
-    public List<TemaJPA> getTemas() {
+    public Set<TemaJPA> getTemas() {
         return temas;
     }
 
-    public void setTemas(List<TemaJPA> temas) {
+    public void setTemas(Set<TemaJPA> temas) {
         this.temas = temas;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        QuestaoJPA that = (QuestaoJPA) o;
+
+        if (getNivelDificuldade() != that.getNivelDificuldade()) return false;
+        if (!getId().equals(that.getId())) return false;
+        if (getResumo() != null ? !getResumo().equals(that.getResumo()) : that.getResumo() != null) return false;
+        return getDescricao().equals(that.getDescricao());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + (getResumo() != null ? getResumo().hashCode() : 0);
+        result = 31 * result + getDescricao().hashCode();
+        result = 31 * result + getNivelDificuldade();
+        return result;
     }
 }

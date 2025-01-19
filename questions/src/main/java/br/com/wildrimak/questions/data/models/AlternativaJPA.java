@@ -18,7 +18,7 @@ public class AlternativaJPA {
     private String descricao;
 
     @Column(name = "eh_a_certa", nullable = false)
-    private boolean ehACerta;
+    private Boolean ehACerta;
 
     public Integer getId() {
         return id;
@@ -44,11 +44,11 @@ public class AlternativaJPA {
         this.descricao = descricao;
     }
 
-    public boolean isEhACerta() {
+    public Boolean isEhACerta() {
         return ehACerta;
     }
 
-    public void setEhACerta(boolean ehACerta) {
+    public void setEhACerta(Boolean ehACerta) {
         this.ehACerta = ehACerta;
     }
 }

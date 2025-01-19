@@ -2,7 +2,8 @@ package br.com.wildrimak.questions.data.models;
 
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tema")
@@ -16,7 +17,7 @@ public class TemaJPA {
     private String descricao;
 
     @ManyToMany(mappedBy = "temas")
-    private List<QuestaoJPA> questoes;
+    private Set<QuestaoJPA> questoes = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -34,11 +35,30 @@ public class TemaJPA {
         this.descricao = descricao;
     }
 
-    public List<QuestaoJPA> getQuestoes() {
+    public Set<QuestaoJPA> getQuestoes() {
         return questoes;
     }
 
-    public void setQuestoes(List<QuestaoJPA> questoes) {
+    public void setQuestoes(Set<QuestaoJPA> questoes) {
         this.questoes = questoes;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TemaJPA temaJPA = (TemaJPA) o;
+
+        if (!getId().equals(temaJPA.getId())) return false;
+        return getDescricao().equals(temaJPA.getDescricao());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId().hashCode();
+        result = 31 * result + getDescricao().hashCode();
+        return result;
+    }
+
 }

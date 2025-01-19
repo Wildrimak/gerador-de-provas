@@ -14,5 +14,6 @@ public class Alternativa {
     private Integer id;
     private Questao questao;
     private String descricao;
-    private boolean ehACerta;
+    private Boolean ehACerta;
+
 }

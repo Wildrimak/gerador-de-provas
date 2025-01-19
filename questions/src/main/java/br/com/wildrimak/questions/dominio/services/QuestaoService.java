@@ -1,5 +1,8 @@
 package br.com.wildrimak.questions.dominio.services;
 
+import br.com.wildrimak.questions.data.mappers.QuestaoMapper;
+import br.com.wildrimak.questions.data.models.QuestaoJPA;
+import br.com.wildrimak.questions.data.repositories.QuestaoRepository;
 import br.com.wildrimak.questions.dominio.models.Questao;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -8,11 +11,15 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class QuestaoService {
 
-//    private QuestaoRepository questaoRepository;
+    private QuestaoRepository questaoRepository;
 
     public Questao save(Questao questao) {
-        questao.setId(1);
-        return questao;
+
+        var questaoJpa = QuestaoMapper.INSTANCE.fromQuestao(questao);
+        QuestaoJPA saved = questaoRepository.save(questaoJpa);
+
+        return QuestaoMapper.INSTANCE.toQuestao(saved);
+
     }
 
 }
