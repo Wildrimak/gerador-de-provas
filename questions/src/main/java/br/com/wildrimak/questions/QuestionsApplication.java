@@ -13,9 +13,8 @@ public class QuestionsApplication {
 
 	private static String proximosPassos() {
 		String start = "\n\n\n\n\n";
-		final int finalizados = 5;
+		final int finalizados = 6;
 		int i = 1;
-		start += i++ + ". Finalizar modelagem dos modelos de negócio\n";
 		start += i++ + ". Terminar mapeamento entre models de negocio e de jpa\n";
 		start += i++ + ". Finalizar modelagem dos dtos das controllers\n";
 		start += i++ + ". Terminar mapeamento entre models de negocio e os dtos da controller\n";

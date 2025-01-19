@@ -2,7 +2,7 @@ package br.com.wildrimak.questions.api.mappers;
 
 import br.com.wildrimak.questions.api.dtos.QuestaoRequest;
 import br.com.wildrimak.questions.api.dtos.QuestaoResponse;
-import br.com.wildrimak.questions.dominio.model.Questao;
+import br.com.wildrimak.questions.dominio.models.Questao;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;

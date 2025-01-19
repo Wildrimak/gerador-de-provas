@@ -1,6 +1,6 @@
 package br.com.wildrimak.questions.dominio.services;
 
-import br.com.wildrimak.questions.dominio.model.Questao;
+import br.com.wildrimak.questions.dominio.models.Questao;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
