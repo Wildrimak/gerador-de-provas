@@ -12,12 +12,19 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Questao {
 
+    @EqualsAndHashCode.Include
     private Integer id;
+
+    @EqualsAndHashCode.Include
     private String resumo;
+
+    @EqualsAndHashCode.Include
     private String descricao;
+
+    @EqualsAndHashCode.Include
     private Integer nivelDificuldade;
 
     @Builder.Default

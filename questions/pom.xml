@@ -33,6 +33,7 @@
 		<flyway.version>11.1.1</flyway.version>
 		<postgresql.version>42.7.4</postgresql.version>
 		<jakarta-validation.version>3.1.0</jakarta-validation.version>
+		<hibernate-validator.version>8.0.2.Final</hibernate-validator.version>
 		<lombok.version>1.18.36</lombok.version>
 		<org.mapstruct.version>1.6.3</org.mapstruct.version>
 	</properties>
@@ -109,6 +110,14 @@
 			<artifactId>jakarta.validation-api</artifactId>
 			<version>${jakarta-validation.version}</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>${hibernate-validator.version}</version>
+		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->
 		<dependency>

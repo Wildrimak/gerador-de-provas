@@ -13,7 +13,7 @@ public class TemaJPA {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 50, unique = true)
     private String descricao;
 
     @ManyToMany(mappedBy = "temas")
@@ -50,14 +50,14 @@ public class TemaJPA {
 
         TemaJPA temaJPA = (TemaJPA) o;
 
-        if (!getId().equals(temaJPA.getId())) return false;
-        return getDescricao().equals(temaJPA.getDescricao());
+        if (getId() != null ? !getId().equals(temaJPA.getId()) : temaJPA.getId() != null) return false;
+        return getDescricao() != null ? getDescricao().equals(temaJPA.getDescricao()) : temaJPA.getDescricao() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + getDescricao().hashCode();
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getDescricao() != null ? getDescricao().hashCode() : 0);
         return result;
     }
 

@@ -25,7 +25,7 @@ public class QuestaoJPA {
     @OneToMany(mappedBy = "questao", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<AlternativaJPA> alternativas = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "tema_questao",
             joinColumns = @JoinColumn(name = "id_questao"),
@@ -88,18 +88,18 @@ public class QuestaoJPA {
 
         QuestaoJPA that = (QuestaoJPA) o;
 
-        if (getNivelDificuldade() != that.getNivelDificuldade()) return false;
-        if (!getId().equals(that.getId())) return false;
+        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
         if (getResumo() != null ? !getResumo().equals(that.getResumo()) : that.getResumo() != null) return false;
-        return getDescricao().equals(that.getDescricao());
+        if (!getDescricao().equals(that.getDescricao())) return false;
+        return getNivelDificuldade() != null ? getNivelDificuldade().equals(that.getNivelDificuldade()) : that.getNivelDificuldade() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getId().hashCode();
+        int result = getId() != null ? getId().hashCode() : 0;
         result = 31 * result + (getResumo() != null ? getResumo().hashCode() : 0);
         result = 31 * result + getDescricao().hashCode();
-        result = 31 * result + getNivelDificuldade();
+        result = 31 * result + (getNivelDificuldade() != null ? getNivelDificuldade().hashCode() : 0);
         return result;
     }
 }

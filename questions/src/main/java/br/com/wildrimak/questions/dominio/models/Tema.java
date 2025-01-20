@@ -12,11 +12,15 @@ import java.util.Set;
 @Getter
 @Setter
 @Builder
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Tema {
 
+    @EqualsAndHashCode.Include
     private Integer id;
+
+    @EqualsAndHashCode.Include
     private String descricao;
+
     @Builder.Default
     private Set<Questao> questoes = new HashSet<>();
 
