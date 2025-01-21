@@ -1,0 +1,10 @@
+{
+    "java.project.referencedLibraries": [
+        "questions/target/dependency/*.jar"
+    ],
+    "java.project.sourcePaths": [
+        "questions/src/main/java"
+    ],
+    "java.project.outputPath": "questions/target/classes",
+    "java.compile.nullAnalysis.mode": "automatic"
+}

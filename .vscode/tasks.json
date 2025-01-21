@@ -1,0 +1,17 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Maven Build",
+            "type": "shell",
+            "command": "mvn clean compile",
+            "options": {
+                "cwd": "${workspaceFolder}/questions"
+            },
+            "group": "build",
+            "problemMatcher": [
+                "$msCompile"
+            ]
+        }
+    ]
+}

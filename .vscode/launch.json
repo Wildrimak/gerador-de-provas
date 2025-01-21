@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Debug Questions",
+            "request": "launch",
+            "mainClass": "br.com.wildrimak.questions.QuestionsApplication",
+            "vmArgs": "-Dspring.profiles.active=local",
+            "projectName": "questions",
+            "cwd": "${workspaceFolder}/questions",
+            "preLaunchTask": "Maven Build"
+        }
+    ]
+}

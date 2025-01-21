@@ -8,7 +8,7 @@
 sdk install java 17.0.13-tem
 ```
 
-3. Instalar extensão "Java Extension Pack" que irá instalar as extensões "Debugger for Java" e "Maven for Java", se não,
+3. Instalar extensão "Extension Pack for Java" que irá instalar as extensões "Debugger for Java" e "Maven for Java", se não,
 instale-as (Todas com o fornecedor da Microsoft).
 
 ## Configurando a execução
@@ -17,50 +17,50 @@ instale-as (Todas com o fornecedor da Microsoft).
 
 ```json
 {
-    "version": "0.2.0",
-    "configurations": [
-      {
-        "type": "java",
-        "name": "Debug Questions",
-        "request": "launch",
-        "mainClass": "br.com.wildrimak.questions.QuestionsApplication",
-        "vmArgs": "-Dspring.profiles.active=local",
-        "projectName": "questions",
-        "cwd": "${workspaceFolder}/questions",
-        "preLaunchTask": "Maven Build"
-      }
-    ]
-  }
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Debug Questions",
+      "request": "launch",
+      "mainClass": "br.com.wildrimak.questions.QuestionsApplication",
+      "vmArgs": "-Dspring.profiles.active=local",
+      "projectName": "questions",
+      "cwd": "${workspaceFolder}/questions",
+      "preLaunchTask": "Maven Build"
+    }
+  ]
+}
 ```
 3. No arquivo settings.json adicione:
 
 ```json
 {
-    "java.project.referencedLibraries": [
-      "questions/target/dependency/*.jar"
-    ],
-    "java.project.sourcePaths": ["questions/src/main/java"],
-    "java.project.outputPath": "questions/target/classes",
-    "java.compile.nullAnalysis.mode": "automatic"
+  "java.project.referencedLibraries": [
+    "questions/target/dependency/*.jar"
+  ],
+  "java.project.sourcePaths": ["questions/src/main/java"],
+  "java.project.outputPath": "questions/target/classes",
+  "java.compile.nullAnalysis.mode": "automatic"
 }
 ```
 
 4. No arquivo tasks.json adicione:
 ```json
 {
-    "version": "2.0.0",
-    "tasks": [
-      {
-        "label": "Maven Build",
-        "type": "shell",
-        "command": "mvn clean compile",
-        "options": {
-          "cwd": "${workspaceFolder}/questions"
-        },
-        "group": "build",
-        "problemMatcher": ["$msCompile"]
-      }
-    ]
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Maven Build",
+      "type": "shell",
+      "command": "mvn clean compile",
+      "options": {
+        "cwd": "${workspaceFolder}/questions"
+      },
+      "group": "build",
+      "problemMatcher": ["$msCompile"]
+    }
+  ]
 }
 ```
 5. Entre na pasta infra pelo terminal e execute: 
@@ -72,13 +72,17 @@ aparecer clique no triangulo verde para iniciar a depuração.
 
 7. Aparecendo quaisquer modais perguntando por alguma ação, marque yes em todas elas.
 
+8. OBS: Na primeira vez que o código roda, ele funciona normalmente, no entanto se você parar a aplicação e tentar rodar 
+novamente pode aparecer um problema como: "Build failed, do you want to continue?", nesse caso, selecione "Fix" e em 
+seguida escolha a opcao "Update Project Configuration" para corrigir o problema. 
+
 ## Configurações opcionais
 
 * Extensão Postman (Postman)
-* Extensão Docker (Microsoft)
-* Extensão Markdown All in One (Yi Zhang)
+  * Lembrar de usar token de autorizacao no modo copia e cola pra logar
 * Extensão Database Client (Weijan Chen)
   * Nesse caso, use as conf de dev para criar conexão com a base
+* Extensão Docker (Microsoft)
 
 ## Observações
 
