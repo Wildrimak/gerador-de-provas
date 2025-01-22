@@ -96,11 +96,11 @@ public class QuestaoService {
 
     }
 
-    public List<Questao> filtrarQuestoesPorTema(String tema, int limite, Pageable pageable) {
+    public List<Questao> filtrarQuestoesPorTemas(Set<String> temas, int limite, Pageable pageable) {
         int tamanhoPagina = Math.min(pageable.getPageSize(), limite);
         Pageable novoPageable = PageRequest.of(pageable.getPageNumber(), tamanhoPagina, pageable.getSort());
 
-        Page<QuestaoJPA> questoesJPA = questaoRepository.findByTemasDescricao(tema, novoPageable);
+        Page<QuestaoJPA> questoesJPA = questaoRepository.findByTemas_DescricaoIn(temas, novoPageable);
 
         return questoesJPA
                 .getContent()

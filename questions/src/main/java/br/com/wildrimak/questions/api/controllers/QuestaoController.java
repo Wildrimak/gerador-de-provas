@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.PageRequest;
@@ -62,12 +63,12 @@ public class QuestaoController {
 
     @GetMapping
     public ResponseEntity<List<QuestaoResponse>> getQuestoes(
-            @RequestParam String tema,
+            @RequestParam Set<String> temas,
             @RequestParam int limite,
             @RequestParam int pagina,
             @RequestParam int tamanhoPagina) {
 
-        var questoesPaginadas = questaoService.filtrarQuestoesPorTema(tema, limite,
+        var questoesPaginadas = questaoService.filtrarQuestoesPorTemas(temas, limite,
                 PageRequest.of(pagina, tamanhoPagina));
 
         var questoesResponse = questoesPaginadas.stream()
