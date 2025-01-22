@@ -13,9 +13,9 @@ public class QuestionsApplication {
 
 	private static String proximosPassos() {
 		String start = "\n\n\n\n\n";
-		final int finalizados = 10;
+		final int finalizados = 11;
 		int i = 1;
-		start += i++ + ". Criar endpoint que permite filtras questoes com base em um tema\n";
+		start += i++ + ". Refatorar a parte de service para que o dominio de negocios, nao tenha dependencias com o dominio de data\n";
 		start += "\n\n";
 		int total = finalizados + i;
 		double percentual = (100 * finalizados) / (double) total;

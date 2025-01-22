@@ -12,10 +12,13 @@ import lombok.AllArgsConstructor;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -24,7 +27,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 @AllArgsConstructor
 public class QuestaoController {
 
-    private QuestaoService questaoService;
+    private final QuestaoService questaoService;
 
     @PostMapping
     public ResponseEntity<QuestaoResponse> postQuestao(@RequestBody @Valid QuestaoRequest questaoRequest) {
@@ -55,6 +58,23 @@ public class QuestaoController {
 
         return ResponseEntity.ok(questoesResponse);
 
+    }
+
+    @GetMapping
+    public ResponseEntity<List<QuestaoResponse>> getQuestoes(
+            @RequestParam String tema,
+            @RequestParam int limite,
+            @RequestParam int pagina,
+            @RequestParam int tamanhoPagina) {
+
+        var questoesPaginadas = questaoService.filtrarQuestoesPorTema(tema, limite,
+                PageRequest.of(pagina, tamanhoPagina));
+
+        var questoesResponse = questoesPaginadas.stream()
+                .map(QuestaoMapper.INSTANCE::fromQuestao)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(questoesResponse);
     }
 
 }

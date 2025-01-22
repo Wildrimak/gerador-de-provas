@@ -9,10 +9,15 @@ import br.com.wildrimak.questions.dominio.models.Questao;
 import br.com.wildrimak.questions.dominio.models.Tema;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -63,22 +68,20 @@ public class QuestaoService {
                     var temasAjustados = questaoJpa.getTemas().stream()
                             .map(tema -> {
                                 String descricao = tema.getDescricao();
-    
+
                                 if (temasExistentesMap.containsKey(descricao)) {
                                     return temasExistentesMap.get(descricao);
                                 }
-    
+
                                 if (novosTemas.containsKey(descricao)) {
                                     return novosTemas.get(descricao);
                                 }
-    
+
                                 TemaJPA novoTema = temaRepository.save(tema);
                                 novosTemas.put(descricao, novoTema);
-                                return novoTema; 
+                                return novoTema;
                             })
                             .collect(Collectors.toSet());
-
-                            
 
                     questaoJpa.setTemas(temasAjustados);
                     return questaoJpa;
@@ -90,6 +93,20 @@ public class QuestaoService {
         return questoesSalvas.stream()
                 .map(QuestaoMapper.INSTANCE::toQuestao)
                 .collect(Collectors.toSet());
+
+    }
+
+    public List<Questao> filtrarQuestoesPorTema(String tema, int limite, Pageable pageable) {
+        int tamanhoPagina = Math.min(pageable.getPageSize(), limite);
+        Pageable novoPageable = PageRequest.of(pageable.getPageNumber(), tamanhoPagina, pageable.getSort());
+
+        Page<QuestaoJPA> questoesJPA = questaoRepository.findByTemasDescricao(tema, novoPageable);
+
+        return questoesJPA
+                .getContent()
+                .stream()
+                .map(QuestaoMapper.INSTANCE::toQuestao)
+                .collect(Collectors.toList());
 
     }
 
