@@ -2,11 +2,16 @@ package br.com.wildrimak.questions.api.controllers;
 
 import br.com.wildrimak.questions.api.dtos.QuestaoRequest;
 import br.com.wildrimak.questions.api.dtos.QuestaoResponse;
+import br.com.wildrimak.questions.api.dtos.QuestoesRequest;
 import br.com.wildrimak.questions.api.mappers.QuestaoMapper;
 import br.com.wildrimak.questions.dominio.models.Questao;
 import br.com.wildrimak.questions.dominio.services.QuestaoService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +38,22 @@ public class QuestaoController {
         var questaoResponse = QuestaoMapper.INSTANCE.fromQuestao(saved);
 
         return ResponseEntity.created(location).body(questaoResponse);
+
+    }
+
+    @PostMapping("/lote")
+    public ResponseEntity<List<QuestaoResponse>> postQuestoes(@RequestBody @Valid QuestoesRequest questoesRequest) {
+
+        var questoes = QuestaoMapper.INSTANCE.fromQuestoesRequest(questoesRequest);
+
+        var questoesSalvas = questaoService.salvarQuestoes(questoes);
+
+        var questoesResponse = questoesSalvas
+                .stream()
+                .map(questao -> QuestaoMapper.INSTANCE.fromQuestao(questao))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(questoesResponse);
 
     }
 

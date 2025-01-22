@@ -24,6 +24,10 @@ aparecer clique no triangulo verde para iniciar a depuração.
 novamente pode aparecer um problema como: "Build failed, do you want to continue?", nesse caso, selecione "Fix" e em 
 seguida escolha a opcao "Update Project Configuration" para corrigir o problema. 
 
+5. Se o caso acima continuar acontecendo, use o clean workspace cache e tenta novamente.
+
+6. E se insistir com problemas relacionados ao MapStruct apenas clique em continue no modal que aparecer.
+
 ## Configurações opcionais
 
 * Extensão Postman (Postman)

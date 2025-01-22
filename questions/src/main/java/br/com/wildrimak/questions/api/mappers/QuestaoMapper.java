@@ -3,6 +3,7 @@ package br.com.wildrimak.questions.api.mappers;
 import br.com.wildrimak.questions.api.dtos.AlternativaRequest;
 import br.com.wildrimak.questions.api.dtos.QuestaoRequest;
 import br.com.wildrimak.questions.api.dtos.QuestaoResponse;
+import br.com.wildrimak.questions.api.dtos.QuestoesRequest;
 import br.com.wildrimak.questions.dominio.models.Alternativa;
 import br.com.wildrimak.questions.dominio.models.Questao;
 import org.mapstruct.AfterMapping;
@@ -13,6 +14,7 @@ import org.mapstruct.factory.Mappers;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Mapper(uses = AlternativaMapper.class)
@@ -27,6 +29,12 @@ public interface QuestaoMapper {
 
     @Mapping(target = "nivel", source = "nivelDificuldade")
     QuestaoResponse fromQuestao(Questao questao);
+
+    Set<Questao> toQuestoes(List<QuestaoRequest> questaoRequests);
+
+    default Set<Questao> fromQuestoesRequest(QuestoesRequest request) {
+        return toQuestoes(request.questoes());
+    }
 
     default Set<Alternativa> mapAlternativas(Set<AlternativaRequest> alternativaRequests, @MappingTarget Questao questao) {
         if (alternativaRequests == null || alternativaRequests.isEmpty()) {

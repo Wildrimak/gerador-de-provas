@@ -13,9 +13,8 @@ public class QuestionsApplication {
 
 	private static String proximosPassos() {
 		String start = "\n\n\n\n\n";
-		final int finalizados = 9;
+		final int finalizados = 10;
 		int i = 1;
-		start += i++ + ". Atualizar endpoint de criar questao para lista de questoes\n";
 		start += i++ + ". Criar endpoint que permite filtras questoes com base em um tema\n";
 		start += "\n\n";
 		int total = finalizados + i;
