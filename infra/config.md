@@ -1,6 +1,6 @@
 # Instruções para executar no github codespace
 
-## Configurando ambiente
+## Configurando ambiente do questions
 
 1. Escolha a máquina 4-core 32GB
 2. No terminal coloque o java 17:
@@ -9,7 +9,7 @@
 
 3. Instalar extensão "Extension Pack for Java" (Do fornecedor da Microsoft).
 
-## Configurando a execução
+## Configurando a execução do questions
 
 1. Entre na pasta infra pelo terminal e execute: 
 
@@ -28,7 +28,7 @@ seguida escolha a opcao "Update Project Configuration" para corrigir o problema.
 
 6. E se insistir com problemas relacionados ao MapStruct apenas clique em continue no modal que aparecer.
 
-## Configurações opcionais
+## Configurações opcionais do questions
 
 * Extensão Postman (Postman)
   * Lembrar de usar token de autorizacao no modo copia e cola pra logar
@@ -36,7 +36,22 @@ seguida escolha a opcao "Update Project Configuration" para corrigir o problema.
   * Nesse caso, use as conf de dev para criar conexão com a base
 * Extensão Docker (Microsoft)
 
-## Observações
+## Observações do questions
 
 No modo vscode usando codespace não existe ambiente de prod, no docker compose, ha uma configuração para ambiente de 
 prod local, mas ela nao faz sentido lá, pois a princípio a aplicação é para executar na máquina do usuário.
+
+## Configurando ambiente do questions-frontend
+
+Instala o node na ultima versão:
+> nvm install 22
+
+Instala o npm na ultima versão:
+> npm install npm@latest -g
+
+Instala o angular na ultima versao:
+> npm install -g @angular/cli
+
+## Configurações opcionais do questions-frontend
+
+* Extensão Angular Language Service (Angular)
