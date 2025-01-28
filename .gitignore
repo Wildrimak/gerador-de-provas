@@ -32,21 +32,52 @@ out/
 *.war
 *.ear
 
-# Ignorar configurações do Angular
-node_modules/
-dist/
-.angular/
-
-# Ignorar dependências de Node.js
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
 # Ignorar arquivos gerados pelo Docker
 docker-compose.override.yml
 .docker/
 *.env
 .env.*
 
-# Ignorar dados do
+# Saída de compilação
+dist/
+out-tsc/
 
+# Módulos do NPM
+node_modules/
+
+# Arquivos de ambiente
+src/environments/*.ts
+!src/environments/environment.prod.ts
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Arquivos de build do Angular
+.angular/
+
+# Arquivos temporários
+*.tmp
+*.bak
+*.old
+
+# Relatórios de cobertura de testes
+coverage/
+*.lcov
+
+# Gerados pelo Angular CLI
+.sass-cache/
+
+# Ignorar arquivos específicos do frontend
+questions-frontend/node_modules/
+questions-frontend/dist/
+questions-frontend/out-tsc/
+questions-frontend/.angular/
+questions-frontend/coverage/
+questions-frontend/*.log
+questions-frontend/npm-debug.log*
+questions-frontend/yarn-debug.log*
+questions-frontend/yarn-error.log*
+questions-frontend/.sass-cache/
