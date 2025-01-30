@@ -2,12 +2,12 @@
     <div class="text-center">
         <h1 class="mb-4">Bem-vindo ao Sistema de Questões e Provas</h1>
         <div class="d-grid gap-3">
-            <button class="btn btn-primary btn-lg" routerLink="/cadastrar-questoes">
+            <a [routerLink]="['cadastra-questoes']" class="btn btn-primary btn-lg" role="button">
                 Cadastrar Questões
-            </button>
-            <button class="btn btn-success btn-lg" routerLink="/gerar-provas">
-                Gerar Provas
-            </button>
+            </a>
+            <a [routerLink]="['gera-prova']" class="btn btn-success btn-lg" role="button">
+                Gerar Prova
+            </a>
         </div>
     </div>
 </div>
