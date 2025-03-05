@@ -57,3 +57,16 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+## Relacionamento entre componentes
+
+1. home
+    1.1 cadastra-questoes
+        1.1.1 processa-questoes
+            >> Exibe area de texto para cadastro de questoes
+            >> Exibe outra area de texto para insercao do gabarito
+            >> Exibe um botao processar -> Se a api retornar erro, deve trocar o componente visualiza-questoes por um componente que lista os motivos do erro e o que deve corrigir.
+            >> Exibe um botao retornar
+        1.1.2 visualiza-questoes
+        1.1.3 visualiza-falhas-processamento
+    1.2 gera-prova 

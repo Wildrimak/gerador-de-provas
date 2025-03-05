@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { CadastraQuestoesComponent } from './cadastra-questoes/cadastra-questoes.component'
-import { GeraProvaComponent } from './gera-prova/gera-prova.component'
+import { CadastraQuestoesComponent } from './cadastra-questoes/cadastra-questoes.component';
+import { GeraProvaComponent } from './gera-prova/gera-prova.component';
 import { ProcessaQuestoesComponent } from './processa-questoes/processa-questoes.component';
 import { VisualizaQuestoesComponent } from './visualiza-questoes/visualiza-questoes.component';
 
@@ -11,10 +11,14 @@ const routeConfig: Routes = [
         component: HomeComponent,
         title: 'Inicio',
     },
-    {
-        path: 'cadastra-questoes',
+    { 
+        path: 'cadastra-questoes', 
         component: CadastraQuestoesComponent,
-        title: 'Cadastra Questoes',
+        title: 'Cadastra Questões',
+        children: [
+            { path: 'processa-questoes', component: ProcessaQuestoesComponent, outlet: 'processa' },
+            { path: 'visualiza-questoes', component: VisualizaQuestoesComponent, outlet: 'visualiza' }
+        ]
     },
     {
         path: 'gera-prova',
@@ -22,19 +26,10 @@ const routeConfig: Routes = [
         title: 'Gera Prova',
     },
     {
-        path: 'processa-questoes',
-        component: ProcessaQuestoesComponent,
-        title: 'Processa Questoes',
-    },
-    {
-        path: 'visualiza-questoes',
-        component: VisualizaQuestoesComponent,
-        title: 'Visualiza Questoes',
-    },
-    {
         path: '**',
         redirectTo: '',
         pathMatch: 'full'
     }
 ];
+
 export default routeConfig;
