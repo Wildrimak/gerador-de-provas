@@ -1,4 +1,9 @@
 <div class="d-flex">
     <p>CADASTRA QUESTOES - WORKS!</p>
     <app-processa-questoes></app-processa-questoes>
+    @if (semErros) {
+        <app-visualiza-questoes></app-visualiza-questoes>
+    } @else {
+        <app-erro-questoes></app-erro-questoes>
+    }    
 </div>
