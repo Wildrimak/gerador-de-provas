@@ -1,16 +1,28 @@
 <h3>Processamento de Questões</h3>
 
 <div class="mb-3">
-    <label for="questoes" class="form-label">Cole suas questões:</label>
-    <textarea id="questoes" class="form-control" rows="5" placeholder="Digite as questões aqui..."></textarea>
+  <label for="questoes" class="form-label">Cole suas questões:</label>
+  <textarea 
+    id="questoes" 
+    class="form-control" 
+    rows="5" 
+    [(ngModel)]="questoes" 
+    placeholder="Digite as questões aqui...">
+  </textarea>
 </div>
 
 <div class="mb-3">
-    <label for="gabarito" class="form-label">Cole o gabarito:</label>
-    <textarea id="gabarito" class="form-control" rows="3" placeholder="Digite o gabarito aqui..."></textarea>
+  <label for="gabarito" class="form-label">Cole o gabarito:</label>
+  <textarea 
+    id="gabarito" 
+    class="form-control" 
+    rows="3" 
+    [(ngModel)]="gabarito" 
+    placeholder="Digite o gabarito aqui...">
+  </textarea>
 </div>
 
 <div class="d-flex justify-content-between">
-    <button class="btn btn-primary">Processar</button>
-    <button class="btn btn-secondary" [routerLink]="['/cadastra-questoes']">Retornar</button>
+  <button class="btn btn-primary" (click)="onProcessar()">Processar</button>
+  <button class="btn btn-secondary" [routerLink]="['/cadastra-questoes']">Retornar</button>
 </div>

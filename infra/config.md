@@ -52,6 +52,9 @@ Instala o npm na ultima versão:
 Instala o angular na ultima versao:
 > npm install -g @angular/cli
 
+Tudo em 1:
+> nvm install 22 && npm install npm@latest -g && npm install -g @angular/cli
+
 ## Configurações opcionais do questions-frontend
 
 * Extensão Angular Language Service (Angular)

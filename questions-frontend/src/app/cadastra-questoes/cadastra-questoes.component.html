@@ -1,9 +1,18 @@
-<div class="d-flex">
-    <p>CADASTRA QUESTOES - WORKS!</p>
-    <app-processa-questoes></app-processa-questoes>
+<div class="container">
+    <div class="quadrado">
+      <app-processa-questoes (processar)="onProcessar($event)"></app-processa-questoes>
+    </div>
+  
+    <div class="espaco"></div>
+  
     @if (semErros) {
-        <app-visualiza-questoes></app-visualiza-questoes>
+      <div class="quadrado">
+        <app-visualiza-questoes [questoes]="questoes" [gabarito]="gabarito"></app-visualiza-questoes>
+      </div>
     } @else {
+      <div class="quadrado">
         <app-erro-questoes></app-erro-questoes>
-    }    
-</div>
+      </div>
+    }
+  </div>
+  
