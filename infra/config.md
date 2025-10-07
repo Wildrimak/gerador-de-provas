@@ -1,60 +1,59 @@
-# Instruções para executar no github codespace
+# Manual de Configuração e Execução do Projeto "gerador-de-provas" no GitHub Codespaces
 
-## Configurando ambiente do questions
+## Visão Geral
 
-1. Escolha a máquina 4-core 32GB
-2. No terminal coloque o java 17:
+Este manual fornece instruções detalhadas para configurar o ambiente de desenvolvimento do projeto `gerador-de-provas` e seus componentes (backend e frontend) dentro de um ambiente GitHub Codespaces.
 
-> sdk install java 17.0.13-tem
+## Passo 1: Preparação Automática do Ambiente
 
-3. Instalar extensão "Extension Pack for Java" (Do fornecedor da Microsoft).
+Sua primeira interação com o Codespaces cuidará da maior parte da configuração.
 
-## Configurando a execução do questions
+1.  **Inicialização do Contêiner:** Ao iniciar o Codespace, o VS Code detectará os arquivos de configuração (`devcontainer.json`) e começará a construir o ambiente. Este processo instala as versões corretas das ferramentas, dependências e extensões recomendadas do VS Code.
+2.  **Aguarde a Conclusão:** Apenas monitore os logs no terminal integrado até que a configuração esteja 100% completa.
 
-1. Entre na pasta infra pelo terminal e execute: 
+## Passo 2: Configurando e Executando o Backend (`questions`)
 
-> docker compose up -d
+O backend consiste em uma aplicação Java/Spring e seus serviços de suporte (infraestrutura), gerenciados via Docker.
 
-2. Na barra lateral acima de extensões e abaixo de controle de código fonte, clique no Executar e Depurar e na aba que 
-aparecer clique no triangulo verde para iniciar a depuração. 
+1.  **Subir a Infraestrutura com Docker:**
+    * Navegue até a pasta `infra/` pelo terminal do VS Code.
+    * Execute o comando `docker compose up -d`.
 
-3. Aparecendo quaisquer modais perguntando por alguma ação, marque yes em todas elas.
+    ```bash
+    cd infra
+    docker compose up -d
+    ```
 
-4. OBS: Na primeira vez que o código roda, ele funciona normalmente, no entanto se você parar a aplicação e tentar rodar 
-novamente pode aparecer um problema como: "Build failed, do you want to continue?", nesse caso, selecione "Fix" e em 
-seguida escolha a opcao "Update Project Configuration" para corrigir o problema. 
+2.  **Executar a Aplicação Principal:**
+    * Acesse a visualização **"Run and Debug"** na barra de atividades à esquerda do VS Code (ícone de play com um bug).
+    * No painel que se abre, uma configuração de inicialização para o projeto já estará disponível.
+    * Clique no ícone de play verde (▶️) para compilar e iniciar a aplicação principal. O console de depuração mostrará os logs de inicialização do Spring Boot.
 
-5. Se o caso acima continuar acontecendo, use o clean workspace cache e tenta novamente.
+## Passo 3: Configurando e Executando o Frontend (`questions-frontend`)
 
-6. E se insistir com problemas relacionados ao MapStruct apenas clique em continue no modal que aparecer.
+O frontend é uma aplicação Angular que roda em seu próprio servidor de desenvolvimento.
 
-## Configurações opcionais do questions
+1.  **Preparar e Iniciar o Servidor Angular:**
+    * Abra um **novo terminal** no VS Code para não interromper os outros processos.
+    * Navegue até a pasta do projeto frontend: `cd questions-frontend`.
+    * **a. Instalação de Dependências (Primeira Execução):** Na primeira vez que for executar o frontend, pode ser necessário instalar as dependências. Se a aplicação não iniciar ou solicitar, execute o comando abaixo.
+        * **O que isso faz?** Este comando lê o arquivo `package.json` e baixa todas as bibliotecas necessárias para o projeto.
+        ```bash
+        npm install
+        ```
+    * **b. Iniciar o Servidor de Desenvolvimento:** Com as dependências instaladas, inicie o servidor.
+        * **O que isso faz?** Este comando compila a aplicação Angular e a hospeda em um servidor local, que monitora alterações nos arquivos e recarrega a página automaticamente.
+        ```bash
+        ng serve
+        ```
 
-* Extensão Postman (Postman)
-  * Lembrar de usar token de autorizacao no modo copia e cola pra logar
-* Extensão Database Client (Weijan Chen)
-  * Nesse caso, use as conf de dev para criar conexão com a base
-* Extensão Docker (Microsoft)
+2.  **Acessar a Aplicação:**
+    * O terminal indicará que a aplicação está disponível, tipicamente em `http://localhost:4200`.
+    * O GitHub Codespaces detectará que a porta está em uso e oferecerá um botão para abri-la em uma nova aba do seu navegador, já com o redirecionamento correto.
 
-## Observações do questions
+## Passo 4: Configurações Opcionais (Desenvolvimento Web)
 
-No modo vscode usando codespace não existe ambiente de prod, no docker compose, ha uma configuração para ambiente de 
-prod local, mas ela nao faz sentido lá, pois a princípio a aplicação é para executar na máquina do usuário.
+Se você estiver usando o Codespaces diretamente no navegador, estas configurações manuais são recomendadas:
 
-## Configurando ambiente do questions-frontend
-
-Instala o node na ultima versão:
-> nvm install 22
-
-Instala o npm na ultima versão:
-> npm install npm@latest -g
-
-Instala o angular na ultima versao:
-> npm install -g @angular/cli
-
-Tudo em 1:
-> nvm install 22 && npm install npm@latest -g && npm install -g @angular/cli
-
-## Configurações opcionais do questions-frontend
-
-* Extensão Angular Language Service (Angular)
+* **Postman:** Para testar os endpoints da API, faça login na extensão do Postman com seu token de autorização.
+* **Conexão com o Banco de Dados:** Utilize a extensão de cliente de banco de dados instalada para se conectar à instância Docker. As credenciais de acesso podem ser encontradas nos arquivos de configuração do ambiente (`docker-compose.yml`).
