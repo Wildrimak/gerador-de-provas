@@ -1,0 +1,26 @@
+{
+  "name": "Ambiente Java & Angular",
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "17"
+    },
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "22"
+    }
+  },
+
+  "postCreateCommand": "npm install -g npm@latest && npm install -g @angular/cli",
+  
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",      // Extension Pack for Java (Microsoft)
+        "Postman.postman-for-vscode",    // Postman
+        "cweijan.vscode-database-client2", // Database Client (Weijan Chen)
+        "ms-azuretools.vscode-docker",   // Docker (Microsoft)
+        "Angular.ng-template"            // Angular Language Service (Angular)
+      ]
+    }
+  }
+}
