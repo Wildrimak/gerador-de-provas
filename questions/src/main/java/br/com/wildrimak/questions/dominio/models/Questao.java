@@ -19,9 +19,6 @@ public class Questao {
     private Integer id;
 
     @EqualsAndHashCode.Include
-    private String resumo;
-
-    @EqualsAndHashCode.Include
     private String descricao;
 
     @EqualsAndHashCode.Include

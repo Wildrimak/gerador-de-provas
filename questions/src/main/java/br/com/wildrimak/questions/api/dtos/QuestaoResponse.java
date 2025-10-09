@@ -4,7 +4,6 @@ import java.util.Set;
 
 public record QuestaoResponse(
         Integer id,
-        String resumo,
         String descricao,
         Integer nivel,
         Set<AlternativaResponse> alternativas,

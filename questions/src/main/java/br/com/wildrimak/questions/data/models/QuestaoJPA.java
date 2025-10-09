@@ -13,9 +13,6 @@ public class QuestaoJPA {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(length = 25)
-    private String resumo;
-
     @Column(nullable = false, columnDefinition = "TEXT")
     private String descricao;
 
@@ -47,14 +44,6 @@ public class QuestaoJPA {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getResumo() {
-        return resumo;
-    }
-
-    public void setResumo(String resumo) {
-        this.resumo = resumo;
     }
 
     public String getDescricao() {
@@ -89,7 +78,6 @@ public class QuestaoJPA {
         QuestaoJPA that = (QuestaoJPA) o;
 
         if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
-        if (getResumo() != null ? !getResumo().equals(that.getResumo()) : that.getResumo() != null) return false;
         if (!getDescricao().equals(that.getDescricao())) return false;
         return getNivelDificuldade() != null ? getNivelDificuldade().equals(that.getNivelDificuldade()) : that.getNivelDificuldade() == null;
     }
@@ -97,7 +85,6 @@ public class QuestaoJPA {
     @Override
     public int hashCode() {
         int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getResumo() != null ? getResumo().hashCode() : 0);
         result = 31 * result + getDescricao().hashCode();
         result = 31 * result + (getNivelDificuldade() != null ? getNivelDificuldade().hashCode() : 0);
         return result;
