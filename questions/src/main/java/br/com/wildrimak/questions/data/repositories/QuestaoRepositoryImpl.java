@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -85,6 +86,11 @@ public class QuestaoRepositoryImpl implements br.com.wildrimak.questions.dominio
                 .map(QuestaoMapper.INSTANCE::toQuestao)
                 .collect(Collectors.toList());
 
+    }
+
+    @Override
+    public Optional<Questao> findById(Integer id) {
+        return questaoJpaRepository.findById(id).map(QuestaoMapper.INSTANCE::toQuestao);
     }
 
 }

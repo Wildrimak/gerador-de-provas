@@ -1,9 +1,6 @@
 package br.com.wildrimak.questions.dominio.models;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Collections;
 import java.util.HashSet;
@@ -25,33 +22,37 @@ public class Questao {
     private Integer nivelDificuldade;
 
     @Builder.Default
+    @Setter(AccessLevel.NONE)
     private Set<Alternativa> alternativas = new HashSet<>();
 
     @Builder.Default
     private Set<Tema> temas = new HashSet<>();
 
-    public void addAlternativa(Alternativa alternativa) {
-        alternativas.add(alternativa);
-        alternativa.setQuestao(this);
-    }
-
-    public void removeAlternativa(Alternativa alternativa) {
-        alternativas.remove(alternativa);
-        alternativa.setQuestao(null);
-    }
-
-    public void addTema(Tema tema) {
-        temas.add(tema);
-        tema.getQuestoes().add(this);
-    }
-
-    public void removeTema(Tema tema) {
-        temas.remove(tema);
-        tema.getQuestoes().remove(this);
-    }
-
     public Set<Alternativa> getAlternativas() {
         return Collections.unmodifiableSet(alternativas);
+    }
+
+    public void setAlternativas(Set<Alternativa> novasAlternativas) {
+
+        this.alternativas.forEach(alternativa -> alternativa.setQuestao(null));
+
+        if (novasAlternativas == null || novasAlternativas.isEmpty()) {
+            this.alternativas = new HashSet<>();
+            return;
+        }
+
+        var countCorretas = novasAlternativas.stream()
+                .filter(Alternativa::getEhACerta)
+                .count();
+
+        if (countCorretas != 1) {
+            throw new IllegalStateException("Uma questão deve ter exatamente uma alternativa correta " +
+                    "ou não possuir alternativas, mas foram encontradas " + countCorretas + " alternativas corretas");
+        }
+
+        novasAlternativas.forEach(alternativa -> alternativa.setQuestao(this));
+        this.alternativas = novasAlternativas;
+
     }
 
     public Set<Tema> getTemas() {

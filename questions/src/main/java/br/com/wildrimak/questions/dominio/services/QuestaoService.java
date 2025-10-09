@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -60,6 +61,22 @@ public class QuestaoService {
         int limiteFinal = (quantidadeDeQuestoes != null) ? quantidadeDeQuestoes : 10000;
         return questaoRepository.filtrarQuestoes(temas, descricao, nivel, limiteFinal);
 
+    }
+
+    @Transactional
+    public Questao atualizarQuestao(Integer id, Questao questaoComNovosDados) {
+
+        var questaoAtual = questaoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Questão não encontrada com id: " + id));
+
+        questaoAtual.setDescricao(questaoComNovosDados.getDescricao());
+        questaoAtual.setNivelDificuldade(questaoComNovosDados.getNivelDificuldade());
+        questaoAtual.setAlternativas(questaoComNovosDados.getAlternativas());
+
+        var temasPersistidos = temaRepository.findOrCreateTemas(questaoComNovosDados.getTemas());
+        questaoAtual.setTemas(temasPersistidos);
+
+        return questaoRepository.save(questaoAtual);
     }
 
 }
