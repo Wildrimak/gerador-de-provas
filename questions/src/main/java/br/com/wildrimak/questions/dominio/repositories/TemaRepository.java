@@ -2,6 +2,7 @@ package br.com.wildrimak.questions.dominio.repositories;
 
 import br.com.wildrimak.questions.dominio.models.Tema;
 
+import java.util.List;
 import java.util.Set;
 
 public interface TemaRepository {
@@ -15,5 +16,7 @@ public interface TemaRepository {
      * @return Um conjunto de temas gerenciados pela persistência.
      */
     Set<Tema> findOrCreateTemas(Set<Tema> temas);
+
+    List<Tema> findAll();
 
 }

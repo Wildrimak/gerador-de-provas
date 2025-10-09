@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -46,6 +47,14 @@ public class TemaRepositoryImpl implements br.com.wildrimak.questions.dominio.re
                 .map(TemaMapper.INSTANCE::toTema)
                 .collect(Collectors.toSet());
 
+    }
+
+    @Override
+    public List<Tema> findAll() {
+        return temaJpaRepository.findAll()
+                .stream()
+                .map(TemaMapper.INSTANCE::toTema)
+                .collect(Collectors.toList());
     }
 
 }
