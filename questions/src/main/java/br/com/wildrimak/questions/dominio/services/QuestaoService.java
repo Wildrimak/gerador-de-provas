@@ -8,7 +8,6 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -77,6 +76,17 @@ public class QuestaoService {
         questaoAtual.setTemas(temasPersistidos);
 
         return questaoRepository.save(questaoAtual);
+    }
+
+    public void deletarQuestao(Integer id) {
+
+        if (questaoRepository.existsById(id)) {
+            questaoRepository.deleteById(id);
+            return;
+        }
+
+        throw new RuntimeException("Questão com o ID " + id + " não encontrada.");
+
     }
 
 }

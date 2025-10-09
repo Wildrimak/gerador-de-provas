@@ -93,4 +93,14 @@ public class QuestaoRepositoryImpl implements br.com.wildrimak.questions.dominio
         return questaoJpaRepository.findById(id).map(QuestaoMapper.INSTANCE::toQuestao);
     }
 
+    @Override
+    public boolean existsById(Integer id) {
+        return questaoJpaRepository.existsById(id);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        questaoJpaRepository.deleteById(id);
+    }
+
 }

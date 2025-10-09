@@ -83,4 +83,13 @@ public class QuestaoController {
         return ResponseEntity.ok(questoesResponse);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteQuestao(@PathVariable Integer id) {
+
+        questaoService.deletarQuestao(id);
+
+        return ResponseEntity.noContent().build();
+
+    }
+
 }

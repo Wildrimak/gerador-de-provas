@@ -16,4 +16,8 @@ public interface QuestaoRepository {
 
     Optional<Questao> findById(Integer id);
 
+    boolean existsById(Integer id);
+
+    void deleteById(Integer id);
+
 }
