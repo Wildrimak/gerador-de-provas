@@ -1,24 +1,17 @@
 package br.com.wildrimak.questions.dominio.services;
 
-import br.com.wildrimak.questions.data.mappers.QuestaoMapper;
-import br.com.wildrimak.questions.data.models.QuestaoJPA;
-import br.com.wildrimak.questions.data.models.TemaJPA;
-import br.com.wildrimak.questions.data.repositories.QuestaoRepository;
-import br.com.wildrimak.questions.data.repositories.TemaRepository;
 import br.com.wildrimak.questions.dominio.models.Questao;
 import br.com.wildrimak.questions.dominio.models.Tema;
+import br.com.wildrimak.questions.dominio.repositories.QuestaoRepository;
+import br.com.wildrimak.questions.dominio.repositories.TemaRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,83 +23,45 @@ public class QuestaoService {
 
     public Questao save(Questao questao) {
 
-        var questaoJpa = QuestaoMapper.INSTANCE.fromQuestao(questao);
+        var temasPersistidos = temaRepository.findOrCreateTemas(questao.getTemas());
+        questao.setTemas(temasPersistidos);
 
-        Set<TemaJPA> temasAjustados = questaoJpa.getTemas().stream()
-                .map(tema -> temaRepository
-                        .findByDescricao(tema.getDescricao())
-                        .orElse(tema))
-                .collect(Collectors.toSet());
-
-        questaoJpa.setTemas(temasAjustados);
-
-        QuestaoJPA saved = questaoRepository.save(questaoJpa);
-
-        return QuestaoMapper.INSTANCE.toQuestao(saved);
+        return questaoRepository.save(questao);
 
     }
 
     @Transactional
     public Set<Questao> salvarQuestoes(Set<Questao> questoes) {
 
-        var descricoesTemas = questoes.stream()
+        var temasParaProcessar = questoes.stream()
                 .flatMap(questao -> questao.getTemas().stream())
-                .map(Tema::getDescricao)
                 .collect(Collectors.toSet());
 
-        var temasExistentes = temaRepository.findAllByDescricaoIn(descricoesTemas);
+        var temasPersistidos = temaRepository.findOrCreateTemas(temasParaProcessar);
 
-        Map<String, TemaJPA> temasExistentesMap = temasExistentes.stream()
-                .collect(Collectors.toMap(TemaJPA::getDescricao, tema -> tema));
+        var temasPersistidosMap = temasPersistidos.stream()
+                .collect(Collectors.toMap(Tema::getDescricao, tema -> tema));
 
-        Map<String, TemaJPA> novosTemas = new HashMap<>();
+        questoes.forEach(questao -> {
 
-        var questoesJPA = questoes.stream()
-                .map(questao -> {
-                    QuestaoJPA questaoJpa = QuestaoMapper.INSTANCE.fromQuestao(questao);
+            var temasAtualizados = questao.getTemas().stream()
+                    .map(tema -> temasPersistidosMap.get(tema.getDescricao()))
+                    .collect(Collectors.toSet());
 
-                    var temasAjustados = questaoJpa.getTemas().stream()
-                            .map(tema -> {
-                                String descricao = tema.getDescricao();
+            questao.setTemas(temasAtualizados);
 
-                                if (temasExistentesMap.containsKey(descricao)) {
-                                    return temasExistentesMap.get(descricao);
-                                }
+        });
 
-                                if (novosTemas.containsKey(descricao)) {
-                                    return novosTemas.get(descricao);
-                                }
-
-                                TemaJPA novoTema = temaRepository.save(tema);
-                                novosTemas.put(descricao, novoTema);
-                                return novoTema;
-                            })
-                            .collect(Collectors.toSet());
-
-                    questaoJpa.setTemas(temasAjustados);
-                    return questaoJpa;
-                })
-                .toList();
-
-        var questoesSalvas = questaoRepository.saveAll(questoesJPA);
-
-        return questoesSalvas.stream()
-                .map(QuestaoMapper.INSTANCE::toQuestao)
-                .collect(Collectors.toSet());
+        return questaoRepository.saveAll(questoes);
 
     }
 
     public List<Questao> filtrarQuestoesPorTemas(Set<String> temas, int limite, Pageable pageable) {
-        int tamanhoPagina = Math.min(pageable.getPageSize(), limite);
+
+        var tamanhoPagina = Math.min(pageable.getPageSize(), limite);
         Pageable novoPageable = PageRequest.of(pageable.getPageNumber(), tamanhoPagina, pageable.getSort());
 
-        Page<QuestaoJPA> questoesJPA = questaoRepository.findByTemas_DescricaoIn(temas, novoPageable);
-
-        return questoesJPA
-                .getContent()
-                .stream()
-                .map(QuestaoMapper.INSTANCE::toQuestao)
-                .collect(Collectors.toList());
+        return questaoRepository.findByTemaDescriptions(temas, novoPageable);
 
     }
 
