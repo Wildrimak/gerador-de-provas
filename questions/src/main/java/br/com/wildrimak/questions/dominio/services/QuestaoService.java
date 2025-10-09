@@ -1,5 +1,6 @@
 package br.com.wildrimak.questions.dominio.services;
 
+import br.com.wildrimak.questions.dominio.exceptions.EntidadeNaoEncontradaException;
 import br.com.wildrimak.questions.dominio.models.Questao;
 import br.com.wildrimak.questions.dominio.models.Tema;
 import br.com.wildrimak.questions.dominio.repositories.QuestaoRepository;
@@ -66,7 +67,7 @@ public class QuestaoService {
     public Questao atualizarQuestao(Integer id, Questao questaoComNovosDados) {
 
         var questaoAtual = questaoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Questão não encontrada com id: " + id));
+                .orElseThrow(() -> new EntidadeNaoEncontradaException("Questão não encontrada com id: " + id));
 
         questaoAtual.setDescricao(questaoComNovosDados.getDescricao());
         questaoAtual.setNivelDificuldade(questaoComNovosDados.getNivelDificuldade());
@@ -85,7 +86,7 @@ public class QuestaoService {
             return;
         }
 
-        throw new RuntimeException("Questão com o ID " + id + " não encontrada.");
+        throw new EntidadeNaoEncontradaException("Questão com o ID " + id + " não encontrada.");
 
     }
 
