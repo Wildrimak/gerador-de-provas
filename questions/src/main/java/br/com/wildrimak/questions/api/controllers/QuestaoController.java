@@ -63,19 +63,19 @@ public class QuestaoController {
 
     @GetMapping
     public ResponseEntity<List<QuestaoResponse>> getQuestoes(
-            @RequestParam Set<String> temas,
-            @RequestParam int limite,
-            @RequestParam int pagina,
-            @RequestParam int tamanhoPagina) {
+            @RequestParam(required = false) Set<String> temas,
+            @RequestParam(required = false) String descricao,
+            @RequestParam(required = false) Integer nivel,
+            @RequestParam(required = false) Integer quantidadeDeQuestoes) {
 
-        var questoesPaginadas = questaoService.filtrarQuestoesPorTemas(temas, limite,
-                PageRequest.of(pagina, tamanhoPagina));
+        var questoes = questaoService.filtrarQuestoes(temas, descricao, nivel, quantidadeDeQuestoes);
 
-        var questoesResponse = questoesPaginadas.stream()
+        var questoesResponse = questoes.stream()
                 .map(QuestaoMapper.INSTANCE::fromQuestao)
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(questoesResponse);
     }
+
 
 }

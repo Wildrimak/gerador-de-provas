@@ -6,8 +6,6 @@ import br.com.wildrimak.questions.dominio.repositories.QuestaoRepository;
 import br.com.wildrimak.questions.dominio.repositories.TemaRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -56,12 +54,11 @@ public class QuestaoService {
 
     }
 
-    public List<Questao> filtrarQuestoesPorTemas(Set<String> temas, int limite, Pageable pageable) {
+    public List<Questao> filtrarQuestoes(Set<String> temas, String descricao, Integer nivel,
+                                         Integer quantidadeDeQuestoes) {
 
-        var tamanhoPagina = Math.min(pageable.getPageSize(), limite);
-        Pageable novoPageable = PageRequest.of(pageable.getPageNumber(), tamanhoPagina, pageable.getSort());
-
-        return questaoRepository.findByTemaDescriptions(temas, novoPageable);
+        int limiteFinal = (quantidadeDeQuestoes != null) ? quantidadeDeQuestoes : 10000;
+        return questaoRepository.filtrarQuestoes(temas, descricao, nivel, limiteFinal);
 
     }
 

@@ -1,7 +1,6 @@
 package br.com.wildrimak.questions.dominio.repositories;
 
 import br.com.wildrimak.questions.dominio.models.Questao;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Set;
@@ -12,6 +11,6 @@ public interface QuestaoRepository {
 
     Set<Questao> saveAll(Set<Questao> questoes);
 
-    List<Questao> findByTemaDescriptions(Set<String> temas, Pageable pageable);
+    List<Questao> filtrarQuestoes(Set<String> temas, String descricao, Integer nivel, Integer quantidadeDeQuestoes);
 
 }

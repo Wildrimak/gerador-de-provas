@@ -4,7 +4,7 @@ import br.com.wildrimak.questions.data.mappers.QuestaoMapper;
 import br.com.wildrimak.questions.data.models.TemaJPA;
 import br.com.wildrimak.questions.dominio.models.Questao;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashSet;
@@ -71,9 +71,15 @@ public class QuestaoRepositoryImpl implements br.com.wildrimak.questions.dominio
     }
 
     @Override
-    public List<Questao> findByTemaDescriptions(Set<String> temas, Pageable pageable) {
+    public List<Questao> filtrarQuestoes(Set<String> temas, String descricao, Integer nivel,
+                                         Integer quantidadeDeQuestoes) {
 
-        var page = questaoJpaRepository.findByTemas_DescricaoIn(temas, pageable);
+        var page = questaoJpaRepository
+                .filtrarQuestoes(
+                        temas,
+                        descricao,
+                        nivel,
+                        PageRequest.of(0, quantidadeDeQuestoes));
 
         return page.getContent().stream()
                 .map(QuestaoMapper.INSTANCE::toQuestao)
