@@ -2,10 +2,10 @@ package br.com.wildrimak.questions.data.mappers;
 
 import br.com.wildrimak.questions.data.models.AlternativaJPA;
 import br.com.wildrimak.questions.data.models.QuestaoJPA;
-import br.com.wildrimak.questions.data.models.TemaJPA;
+import br.com.wildrimak.questions.data.models.TagJPA;
 import br.com.wildrimak.questions.dominio.models.Alternativa;
 import br.com.wildrimak.questions.dominio.models.Questao;
-import br.com.wildrimak.questions.dominio.models.Tema;
+import br.com.wildrimak.questions.dominio.models.Tag;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,13 +15,13 @@ import org.mapstruct.factory.Mappers;
 import java.util.HashSet;
 import java.util.Set;
 
-@Mapper(uses = {AlternativaMapper.class, TemaMapper.class})
+@Mapper(uses = {AlternativaMapper.class, TagMapper.class})
 public interface QuestaoMapper {
 
     QuestaoMapper INSTANCE = Mappers.getMapper(QuestaoMapper.class);
 
     @Mapping(target = "alternativas", ignore = true)
-    @Mapping(target = "temas", ignore = true)
+    @Mapping(target = "tags", ignore = true)
     Questao toQuestao(QuestaoJPA questaoJPA);
 
     @Mapping(target = "alternativas", ignore = true)
@@ -57,18 +57,18 @@ public interface QuestaoMapper {
     }
 
     @AfterMapping
-    default void mapTemas(@MappingTarget Questao questao, QuestaoJPA questaoJPA) {
-        Set<Tema> temas = new HashSet<>();
-        for (TemaJPA temaJPA : questaoJPA.getTemas()) {
-            Tema tema = Tema
-                    .builder()
-                    .id(temaJPA.getId())
-                    .descricao(temaJPA.getDescricao())
-                    .build();
-            tema.addQuestao(questao);
-            temas.add(tema);
+    default void mapTags(@MappingTarget Questao questao, QuestaoJPA questaoJPA) {
+        Set<Tag> tags = new HashSet<>();
+        for (TagJPA tagJPA : questaoJPA.getTags()) {
+            Tag tag = Tag
+                .builder()
+                .id(tagJPA.getId())
+                .descricao(tagJPA.getDescricao())
+                .build();
+            tag.addQuestao(questao);
+            tags.add(tag);
         }
-        questao.setTemas(temas);
+        questao.setTags(tags);
     }
 
 }

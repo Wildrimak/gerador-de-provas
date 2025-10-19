@@ -12,7 +12,7 @@ public interface QuestaoRepository {
 
     Set<Questao> saveAll(Set<Questao> questoes);
 
-    List<Questao> filtrarQuestoes(Set<String> temas, String descricao, Integer nivel, Integer quantidadeDeQuestoes);
+    List<Questao> filtrarQuestoes(Set<String> tags, String descricao, Integer nivel, Integer quantidadeDeQuestoes);
 
     Optional<Questao> findById(Integer id);
 

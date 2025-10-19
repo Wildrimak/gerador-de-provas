@@ -18,14 +18,14 @@ public record QuestaoRequest(
         @Valid
         Set<AlternativaRequest> alternativas,
 
-        Set<TemaRequest> temas
+        Set<TagRequest> tags
 ) {
     public QuestaoRequest(String descricao, Integer nivel, Set<AlternativaRequest> alternativas,
-                          Set<TemaRequest> temas) {
+                          Set<TagRequest> tags) {
         this.descricao = descricao;
         this.nivel = nivel;
         this.alternativas = alternativas == null ? new HashSet<>() : alternativas;
-        this.temas = temas == null ? new HashSet<>() : temas;
+        this.tags = tags == null ? new HashSet<>() : tags;
     }
 }
 

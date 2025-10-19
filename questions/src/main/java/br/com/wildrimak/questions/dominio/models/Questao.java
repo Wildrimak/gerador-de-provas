@@ -26,7 +26,7 @@ public class Questao {
     private Set<Alternativa> alternativas = new HashSet<>();
 
     @Builder.Default
-    private Set<Tema> temas = new HashSet<>();
+    private Set<Tag> tags = new HashSet<>();
 
     public Set<Alternativa> getAlternativas() {
         return Collections.unmodifiableSet(alternativas);
@@ -55,8 +55,8 @@ public class Questao {
 
     }
 
-    public Set<Tema> getTemas() {
-        return Collections.unmodifiableSet(temas);
+    public Set<Tag> getTags() {
+        return Collections.unmodifiableSet(tags);
     }
 
 }

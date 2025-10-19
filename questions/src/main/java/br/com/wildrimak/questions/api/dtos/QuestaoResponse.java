@@ -7,7 +7,7 @@ public record QuestaoResponse(
         String descricao,
         Integer nivel,
         Set<AlternativaResponse> alternativas,
-        Set<TemaResponse> temas
+        Set<TagResponse> tags
 ) {
 }
 

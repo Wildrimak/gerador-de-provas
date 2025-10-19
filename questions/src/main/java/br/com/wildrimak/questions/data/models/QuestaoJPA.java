@@ -24,11 +24,11 @@ public class QuestaoJPA {
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
-            name = "tema_questao",
-            joinColumns = @JoinColumn(name = "id_questao"),
-            inverseJoinColumns = @JoinColumn(name = "id_tema")
+        name = "tag_questao",
+        joinColumns = @JoinColumn(name = "id_questao"),
+        inverseJoinColumns = @JoinColumn(name = "id_tag")
     )
-    private Set<TemaJPA> temas = new HashSet<>();
+    private Set<TagJPA> tags = new HashSet<>();
 
     public void setAlternativas(Set<AlternativaJPA> alternativas) {
         this.alternativas = alternativas;
@@ -62,12 +62,12 @@ public class QuestaoJPA {
         this.nivelDificuldade = nivelDificuldade;
     }
 
-    public Set<TemaJPA> getTemas() {
-        return temas;
+    public Set<TagJPA> getTags() {
+        return tags;
     }
 
-    public void setTemas(Set<TemaJPA> temas) {
-        this.temas = temas;
+    public void setTags(Set<TagJPA> tags) {
+        this.tags = tags;
     }
 
     @Override

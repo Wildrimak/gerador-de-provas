@@ -2,9 +2,9 @@ package br.com.wildrimak.questions.dominio.services;
 
 import br.com.wildrimak.questions.dominio.exceptions.EntidadeNaoEncontradaException;
 import br.com.wildrimak.questions.dominio.models.Questao;
-import br.com.wildrimak.questions.dominio.models.Tema;
+import br.com.wildrimak.questions.dominio.models.Tag;
 import br.com.wildrimak.questions.dominio.repositories.QuestaoRepository;
-import br.com.wildrimak.questions.dominio.repositories.TemaRepository;
+import br.com.wildrimak.questions.dominio.repositories.TagRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,12 +18,12 @@ import java.util.stream.Collectors;
 public class QuestaoService {
 
     private QuestaoRepository questaoRepository;
-    private TemaRepository temaRepository;
+    private TagRepository tagRepository;
 
     public Questao save(Questao questao) {
 
-        var temasPersistidos = temaRepository.findOrCreateTemas(questao.getTemas());
-        questao.setTemas(temasPersistidos);
+        var tagsPersistidos = tagRepository.findOrCreateTags(questao.getTags());
+        questao.setTags(tagsPersistidos);
 
         return questaoRepository.save(questao);
 
@@ -32,22 +32,22 @@ public class QuestaoService {
     @Transactional
     public Set<Questao> salvarQuestoes(Set<Questao> questoes) {
 
-        var temasParaProcessar = questoes.stream()
-                .flatMap(questao -> questao.getTemas().stream())
-                .collect(Collectors.toSet());
+        var tagsParaProcessar = questoes.stream()
+            .flatMap(questao -> questao.getTags().stream())
+            .collect(Collectors.toSet());
 
-        var temasPersistidos = temaRepository.findOrCreateTemas(temasParaProcessar);
+        var tagsPersistidos = tagRepository.findOrCreateTags(tagsParaProcessar);
 
-        var temasPersistidosMap = temasPersistidos.stream()
-                .collect(Collectors.toMap(Tema::getDescricao, tema -> tema));
+        var tagsPersistidosMap = tagsPersistidos.stream()
+            .collect(Collectors.toMap(Tag::getDescricao, tag -> tag));
 
         questoes.forEach(questao -> {
 
-            var temasAtualizados = questao.getTemas().stream()
-                    .map(tema -> temasPersistidosMap.get(tema.getDescricao()))
-                    .collect(Collectors.toSet());
+            var tagsAtualizados = questao.getTags().stream()
+                .map(tag -> tagsPersistidosMap.get(tag.getDescricao()))
+                .collect(Collectors.toSet());
 
-            questao.setTemas(temasAtualizados);
+            questao.setTags(tagsAtualizados);
 
         });
 
@@ -55,11 +55,11 @@ public class QuestaoService {
 
     }
 
-    public List<Questao> filtrarQuestoes(Set<String> temas, String descricao, Integer nivel,
+    public List<Questao> filtrarQuestoes(Set<String> tags, String descricao, Integer nivel,
                                          Integer quantidadeDeQuestoes) {
 
         int limiteFinal = (quantidadeDeQuestoes != null) ? quantidadeDeQuestoes : 10000;
-        return questaoRepository.filtrarQuestoes(temas, descricao, nivel, limiteFinal);
+        return questaoRepository.filtrarQuestoes(tags, descricao, nivel, limiteFinal);
 
     }
 
@@ -73,10 +73,11 @@ public class QuestaoService {
         questaoAtual.setNivelDificuldade(questaoComNovosDados.getNivelDificuldade());
         questaoAtual.setAlternativas(questaoComNovosDados.getAlternativas());
 
-        var temasPersistidos = temaRepository.findOrCreateTemas(questaoComNovosDados.getTemas());
-        questaoAtual.setTemas(temasPersistidos);
+        var tagsPersistidos = tagRepository.findOrCreateTags(questaoComNovosDados.getTags());
+        questaoAtual.setTags(tagsPersistidos);
 
         return questaoRepository.save(questaoAtual);
+        
     }
 
     public void deletarQuestao(Integer id) {

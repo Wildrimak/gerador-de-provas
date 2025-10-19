@@ -69,12 +69,12 @@ public class QuestaoController {
 
     @GetMapping
     public ResponseEntity<List<QuestaoResponse>> getQuestoes(
-            @RequestParam(required = false) Set<String> temas,
+            @RequestParam(required = false) Set<String> tags,
             @RequestParam(required = false) String descricao,
             @RequestParam(required = false) Integer nivel,
             @RequestParam(required = false) Integer quantidadeDeQuestoes) {
 
-        var questoes = questaoService.filtrarQuestoes(temas, descricao, nivel, quantidadeDeQuestoes);
+        var questoes = questaoService.filtrarQuestoes(tags, descricao, nivel, quantidadeDeQuestoes);
 
         var questoesResponse = questoes.stream()
                 .map(QuestaoMapper.INSTANCE::fromQuestao)
