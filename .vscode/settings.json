@@ -6,5 +6,6 @@
         "questions/src/main/java"
     ],
     "java.project.outputPath": "questions/target/classes",
-    "java.compile.nullAnalysis.mode": "automatic"
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.debug.settings.onBuildFailureProceed": true
 }
