@@ -17,9 +17,9 @@
 <!-- Section: conteúdo do componente -->
 <section class="container mx-auto p-4">
     <!-- Painel de filtros (aparece/desaparece e empurra o conteúdo para baixo) -->
-    <div *ngIf="filtersOpen()" class="mb-4">
-        <app-filtra-questoes></app-filtra-questoes>
-    </div>
+    @if (filtersOpen()) {
+        <div class="mb-4"><app-filtra-questoes></app-filtra-questoes></div>
+    }
 
     <!-- Conteúdo principal com cards de exemplo (placeholder) -->
     <div class="grid gap-4">

@@ -1,35 +1,43 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-tags-selector',
-  imports: [CommonModule, FormsModule],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './tags-selector.html',
-  styleUrl: './tags-selector.css'
+  styleUrl: './tags-selector.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TagsSelector {
-  // exemplo de tags estáticas — em uma versão real, viria da API
-  protected allTags = ['algoritmos','matematica','probabilidade','geometria','fisica','quimica','historia'];
-  protected query = '';
-  protected selected: string[] = [];
+  protected readonly allTags = signal<string[]>(['Java', 'Angular', 'Spring Boot', 'TypeScript', 'SQL', 'Docker', 'AWS']);
+  protected readonly query = signal('');
+  protected readonly selected = signal<string[]>([]);
 
-  protected toggle(tag: string) {
-    const idx = this.selected.indexOf(tag);
-    if (idx >= 0) {
-      this.selected = this.selected.filter(t => t !== tag);
-    } else {
-      this.selected = [...this.selected, tag];
+  protected readonly filtered = computed(() => {
+    const q = this.query().toLowerCase();
+    if (!q) {
+      return this.allTags();
     }
+    return this.allTags().filter(tag => tag.toLowerCase().includes(q));
+  });
+
+  protected onQueryChange(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.query.set(input.value);
   }
 
-  protected isSelected(tag: string) {
-    return this.selected.includes(tag);
+  protected isSelected(tag: string): boolean {
+    return this.selected().includes(tag);
   }
 
-  protected filtered() {
-    const q = this.query.toLowerCase().trim();
-    if (!q) return this.allTags;
-    return this.allTags.filter(t => t.toLowerCase().includes(q));
+  protected toggle(tag: string): void {
+    this.selected.update(currentSelected => {
+      if (currentSelected.includes(tag)) {
+        return currentSelected.filter(t => t !== tag);
+      } else {
+        return [...currentSelected, tag];
+      }
+    });
   }
 }
