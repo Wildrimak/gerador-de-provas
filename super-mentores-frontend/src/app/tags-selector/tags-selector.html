@@ -1,0 +1,21 @@
+<div class="tags-selector">
+    <div class="mb-2">
+        <input class="input input-bordered w-full" placeholder="Buscar tags..." [(ngModel)]="query" />
+    </div>
+
+    <div class="dropdown-content grid gap-2 max-h-40 overflow-auto">
+        <div *ngFor="let tag of filtered()" class="flex items-center gap-2">
+            <label class="cursor-pointer flex items-center gap-2">
+                <input type="checkbox" [checked]="isSelected(tag)" (change)="toggle(tag)" class="checkbox" />
+                <span class="badge">{{tag}}</span>
+            </label>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <div *ngIf="selected.length === 0" class="text-sm text-muted">Nenhuma tag selecionada</div>
+        <div *ngIf="selected.length > 0" class="flex flex-wrap gap-2">
+            <span *ngFor="let t of selected" class="badge badge-outline">{{t}}</span>
+        </div>
+    </div>
+</div>

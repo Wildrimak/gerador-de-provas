@@ -1,0 +1,32 @@
+<div class="mx-auto max-w-8xl bg-base-200 p-4 rounded-lg shadow">
+    <form class="grid gap-3">
+        <label class="label">
+            <span class="label-text">Enunciado</span>
+        </label>
+        <input [(ngModel)]="enunciado" name="enunciado" class="input input-bordered w-full"
+            placeholder="Texto do enunciado" />
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+                <label class="label"><span class="label-text">Quantidade</span></label>
+                <input type="number" [(ngModel)]="quantidade" name="quantidade" class="input input-bordered w-full" />
+            </div>
+
+            <div>
+                <label class="label"><span class="label-text">Nível (1-9)</span></label>
+                <input type="number" min="1" max="9" step="1" [(ngModel)]="nivel" name="nivel"
+                    class="input input-bordered w-full" placeholder="Digite um número entre 1 e 9" />
+            </div>
+        </div>
+
+        <div>
+            <label class="label"><span class="label-text">Tags</span></label>
+            <app-tags-selector></app-tags-selector>
+        </div>
+
+        <div class="flex gap-2 justify-end">
+            <button type="button" class="btn btn-ghost">Limpar</button>
+            <button type="submit" class="btn btn-primary">Aplicar</button>
+        </div>
+    </form>
+</div>

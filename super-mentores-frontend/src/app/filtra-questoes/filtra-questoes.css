@@ -1,0 +1,5 @@
+/* Estilos simples para o painel de filtros */
+:host { display: block; }
+
+.label-text { text-transform: capitalize; }
+

@@ -1,0 +1,5 @@
+/* Estilos específicos para o gerenciador de questões */
+:host { display: block; }
+
+.card { border-radius: 0.5rem; }
+

@@ -1,0 +1,71 @@
+<!-- Nav bar: semântica <nav> para espelhar a navbar do app (sem breadcrumbs) -->
+<nav class="navbar bg-primary text-primary-content w-full">
+    <div class="container mx-auto px-4">
+        <div class="flex lg:flex-row flex-col items-center justify-between gap-2 py-3">
+            <h1 class="text-lg font-semibold text-center lg:text-left">Gerenciador de Questões</h1>
+
+            <div class="flex lg:flex-row flex-col lg:items-center items-center gap-2">
+                <div class="flex gap-2 lg:ml-4 lg:flex-row flex-col items-center">
+                    <button (click)="toggleFilters()" class="btn btn-outline btn-sm">Filtrar</button>
+                    <button class="btn btn-outline btn-sm">Download</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Section: conteúdo do componente -->
+<section class="container mx-auto p-4">
+    <!-- Painel de filtros (aparece/desaparece e empurra o conteúdo para baixo) -->
+    <div *ngIf="filtersOpen()" class="mb-4">
+        <app-filtra-questoes></app-filtra-questoes>
+    </div>
+
+    <!-- Conteúdo principal com cards de exemplo (placeholder) -->
+    <div class="grid gap-4">
+        <div class="card bg-base-200 p-4 rounded">
+            <h3 class="font-semibold">Questão 1 (placeholder)</h3>
+            <p class="text-sm text-muted">Este é um card de exemplo para mostrar que os filtros empurram o conteúdo.</p>
+        </div>
+        <div class="card bg-base-200 p-4 rounded">
+            <h3 class="font-semibold">Questão 2 (placeholder)</h3>
+            <p class="text-sm text-muted">Mais conteúdo de exemplo.</p>
+        </div>
+        <div class="card bg-base-200 p-4 rounded">
+            <h3 class="font-semibold">Questão 3 (placeholder)</h3>
+            <p class="text-sm text-muted">Mais conteúdo de exemplo.</p>
+        </div>
+        <div class="card bg-base-200 p-4 rounded">
+            <h3 class="font-semibold">Questão 4 (placeholder)</h3>
+            <p class="text-sm text-muted">Mais conteúdo de exemplo.</p>
+        </div>
+        <div class="card bg-base-200 p-4 rounded">
+            <h3 class="font-semibold">Questão 5 (placeholder)</h3>
+            <p class="text-sm text-muted">Mais conteúdo de exemplo.</p>
+        </div>
+        <div class="card bg-base-200 p-4 rounded">
+            <h3 class="font-semibold">Questão 6 (placeholder)</h3>
+            <p class="text-sm text-muted">Mais conteúdo de exemplo.</p>
+        </div>
+        <div class="card bg-base-200 p-4 rounded">
+            <h3 class="font-semibold">Questão 7 (placeholder)</h3>
+            <p class="text-sm text-muted">Mais conteúdo de exemplo.</p>
+        </div>
+        <div class="card bg-base-200 p-4 rounded">
+            <h3 class="font-semibold">Questão 8 (placeholder)</h3>
+            <p class="text-sm text-muted">Mais conteúdo de exemplo.</p>
+        </div>
+        <div class="card bg-base-200 p-4 rounded">
+            <h3 class="font-semibold">Questão 9 (placeholder)</h3>
+            <p class="text-sm text-muted">Mais conteúdo de exemplo.</p>
+        </div>
+        <div class="card bg-base-200 p-4 rounded">
+            <h3 class="font-semibold">Questão 10 (placeholder)</h3>
+            <p class="text-sm text-muted">Mais conteúdo de exemplo.</p>
+        </div>
+        <div class="card bg-base-200 p-4 rounded">
+            <h3 class="font-semibold">Questão 11 (placeholder)</h3>
+            <p class="text-sm text-muted">Mais conteúdo de exemplo.</p>
+        </div>
+    </div>
+</section>
